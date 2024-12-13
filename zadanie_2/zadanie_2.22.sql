@@ -1,0 +1,5 @@
+USE test_zespoly;
+SELECT REPLACE(
+    REPLACE(NAZWISKO, 'L', 'X'), 
+    'K', 'X') AS 'NAZWISKO'
+FROM PRACOWNICY

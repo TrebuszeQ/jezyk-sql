@@ -1,0 +1,15 @@
+USE test_zespoly;
+WITH CTE AS (
+    (
+        SELECT ETAT, 
+            PLACA_POD, 
+            PLACA_DOD, 
+            ZATRUDNIONY 
+        FROM PRACOWNICY
+        WHERE YEAR(ZATRUDNIONY) > 2017
+    )
+)
+SELECT ETAT, 
+    AVG(PLACA_POD + COALESCE(PLACA_DOD, 0)) AS 'SREDNIA_PENSJA'
+FROM CTE 
+GROUP BY ETAT;
