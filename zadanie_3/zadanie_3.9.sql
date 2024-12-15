@@ -8,19 +8,13 @@ WITH CTE AS (
         SELECT id_szefa
         FROM pracownicy
     )
-);
-
--- SELECT a.nazwisko,
---     COUNT(b.id_prac) AS 'liczba_podwladnych' 
--- FROM CTE a
--- FULL OUTER JOIN pracownicy b
---     ON a.id_prac=b.id_szefa
--- GROUP BY b.id_szefa
+)
 
 SELECT a.nazwisko,
     (
         SELECT COUNT(b.id_prac)
         FROM pracownicy b
         WHERE a.id_prac=b.id_szefa
-    )
-FROM CTE a;
+    ) AS 'liczba_podwladnych'
+FROM CTE a
+ORDER BY liczba_podwladnych DESC;
