@@ -1,0 +1,5 @@
+{
+    "dataworkspace.excludedProjects": [
+        "osrodek_wypoczynkowy/osrodek_wypoczynkowy.sqlproj"
+    ]
+}
