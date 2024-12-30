@@ -19,8 +19,8 @@ CREATE TABLE [dbo].[t_pracownicy]
     REFERENCES t_pracownicy(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-  [fk_id_miejsca_pracy] INT NOT NULL FOREIGN KEY(fk_id_miejsca_pracy)
-    REFERENCES t_miejsca_pracy(id)
+  [fk_id_lokalu] INT NOT NULL FOREIGN KEY(fk_id_lokalu)
+    REFERENCES t_lokale(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 )

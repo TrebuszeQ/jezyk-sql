@@ -1,9 +1,9 @@
-CREATE TABLE [dbo].[t_miejsca_pracy]
+CREATE TABLE [dbo].[t_lokale]
 (
   [id] INT NOT NULL PRIMARY KEY,
+  [nazwa] VARCHAR(128) UNIQUE NOT NULL,
   [miasto] VARCHAR(128) NOT NULL,
   [ulica] VARCHAR(128) NOT NULL,
   [numer_domu] VARCHAR(8) NOT NULL,
-  [kod_pocztowy] VARCHAR(5) NOT NULL,
-  [nazwa] VARCHAR(128) UNIQUE NOT NULL
+  [kod_pocztowy] VARCHAR(5) NOT NULL
 )
