@@ -40,4 +40,4 @@ VALUES
 ('teznia_solankowa_4', NULL, 36, 80, 8, 30, 7, 'Morska Bryza'),
 ('kriokomora_1', NULL, -110, 60, 8, 100, 8, 'Złoty Kwiat'),
 ('kriokomora_2', NULL, -110, 60, 8, 100, 8, 'Relaks'),
-('kriokomora_3', NULL, -110, 60, 8, 100, 8, 'Morska Bryza'),
+('kriokomora_3', NULL, -110, 60, 8, 100, 8, 'Morska Bryza')
