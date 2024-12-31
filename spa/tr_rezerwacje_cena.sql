@@ -1,5 +1,5 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
-CREATE TRIGGER TR_rezerwacje_cena
+CREATE TRIGGER spa.tr_rezerwacje_cena
 ON t_rezerwacje_lokacje
 AFTER INSERT, UPDATE
 AS

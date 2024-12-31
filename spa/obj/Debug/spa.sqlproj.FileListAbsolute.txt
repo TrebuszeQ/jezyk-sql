@@ -1,0 +1,9 @@
+/mnt/code/code/sql/sql_miku/spa/bin/Debug/spa.dacpac
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/spa.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/spa.sourcelink.json
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/Model.xml
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/refactor.xml
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/postdeploy.sql
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/predeploy.sql
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/spa.dll
+/mnt/code/code/sql/sql_miku/spa/obj/Debug/spa.pdb

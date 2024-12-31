@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "OllSDxrvUgY=",
+  "success": true,
+  "projectFilePath": "/mnt/code/code/sql/sql_miku/spa/spa.sqlproj",
+  "expectedPackageFiles": [
+    "/home/admin/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "/home/admin/.nuget/packages/microsoft.netframework.referenceassemblies.net46/1.0.0/microsoft.netframework.referenceassemblies.net46.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

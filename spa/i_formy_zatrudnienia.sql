@@ -1,5 +1,6 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
-INSERT INTO t_formy_zatrudnienia (
+USE spa;
+INSERT INTO dbo.t_formy_zatrudnienia (
     nazwa
 )
 VALUES 

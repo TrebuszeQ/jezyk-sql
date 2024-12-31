@@ -1,6 +1,7 @@
+USE spa;
 CREATE TABLE [dbo].[t_rezerwacje_zabiegi]
 (
-  [id] INT NOT NULL PRIMARY KEY,
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [fk_nazwa_lokalu] VARCHAR(128) NOT NULL FOREIGN KEY(fk_nazwa_lokalu)
     REFERENCES t_lokale(nazwa)
       ON DELETE CASCADE

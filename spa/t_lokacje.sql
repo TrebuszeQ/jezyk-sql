@@ -1,6 +1,7 @@
-CREATE TABLE [dbo].[t_lokacje]
+USE spa;
+CREATE TABLE dbo.t_lokacje
 (
-  [id] INT NOT NULL PRIMARY KEY,
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [nazwa] VARCHAR(64) NOT NULL UNIQUE,
   [opis] VARCHAR(256),
   [srednia_temperatura] FLOAT NOT NULL DEFAULT 0,

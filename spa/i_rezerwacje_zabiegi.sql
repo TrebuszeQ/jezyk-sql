@@ -1,4 +1,5 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
+USE spa;
 INSERT INTO t_rezerwacje_zabiegi (
   fk_nazwa_lokalu,
   fk_nazwa_zabiegu,
