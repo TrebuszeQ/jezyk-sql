@@ -19,7 +19,7 @@ VALUES
 ('radioferencja_mikroiglowa', 500, 2),
 ('mizoterapia_mikroiglowa', 500, 2),
 ('oczyszczanie_wodorowe', 500, 2),
-('mikrodermabrzja', 500, 2),
+('mikrodermabrazja', 500, 2),
 ('manicure_hybrydowy', 200, 3),
 ('pedicure_hybrydowy', 200, 4),
 ('fish_pedicure', 200, 4);

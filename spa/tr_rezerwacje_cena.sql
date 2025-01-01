@@ -1,13 +1,18 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
-CREATE TRIGGER spa.tr_rezerwacje_cena
+USE spa;
+GO
+
+CREATE TRIGGER tr_rezerwacje_cena
 ON t_rezerwacje_lokacje
 AFTER INSERT, UPDATE
 AS
 BEGIN
-    UPDATE t_rezerwacje_lokacje
-    SET CENA = FLOOR(a.czas * b.cena_za_godzine)
-    FROM inserted a
-    JOIN t_lokacje b
-        ON a.fk_nazwa_lokacji = b.nazwa
-        WHERE t_rezerwacje_cena.id = a.id;
+    UPDATE a
+    SET cena = FLOOR(a.czas * b.cena_za_godzine)
+    FROM t_rezerwacje_lokacje a
+    INNER JOIN inserted i
+        ON a.id = i.id
+    INNER JOIN t_lokacje b
+        ON a.fk_nazwa_lokacji = b.nazwa;
 END;
+GO

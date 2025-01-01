@@ -7,7 +7,8 @@ INSERT INTO t_lokacje (
   srednia_wilgotnosc,
   maksymalna_ilosc_osob,
   cena_za_godzine,
-  fk_id_typy_lokacji
+  fk_id_typy_lokacji,
+  fk_nazwa_lokalu
 )
 VALUES 
 ('laznia_turecka_1', NULL, 45, 95, 10, 70, 1, 'Złoty Kwiat'),
@@ -29,7 +30,9 @@ VALUES
 ('sauna_parowa_3', NULL, 70, 90, 10, 70, 4, 'Relaks'),
 ('sauna_parowa_4', NULL, 70, 90, 10, 70, 4, 'Relaks'),
 ('sauna_parowa_5', NULL, 70, 90, 10, 70, 4, 'Morska Bryza'),
-('sauna_podczerwona_1', NULL, 50, 20, 6, 70, 5, ''),
+('sauna_podczerwona_1', NULL, 50, 20, 6, 70, 5, 'Złoty Kwiat'),
+('sauna_podczerwona_2', NULL, 50, 20, 6, 70, 5, 'Relaks'),
+('sauna_podczerwona_3', NULL, 50, 20, 6, 70, 5, 'Morska Bryza'),
 ('jacuzzi_1', NULL, 38, 60, 6, 40, 6, 'Złoty Kwiat'),
 ('jacuzzi_2', NULL, 38, 60, 4, 40, 6, 'Złoty Kwiat'),
 ('jacuzzi_3', NULL, 38, 60, 4, 40, 6, 'Relaks'),
@@ -41,4 +44,4 @@ VALUES
 ('teznia_solankowa_4', NULL, 36, 80, 8, 30, 7, 'Morska Bryza'),
 ('kriokomora_1', NULL, -110, 60, 8, 100, 8, 'Złoty Kwiat'),
 ('kriokomora_2', NULL, -110, 60, 8, 100, 8, 'Relaks'),
-('kriokomora_3', NULL, -110, 60, 8, 100, 8, 'Morska Bryza')
+('kriokomora_3', NULL, -110, 60, 8, 100, 8, 'Morska Bryza');

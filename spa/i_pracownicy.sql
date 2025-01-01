@@ -10,7 +10,7 @@ INSERT INTO t_pracownicy (
     poczatek_umowy,
     koniec_umowy,
     fk_id_przelozonego,
-    fk_id_miejsca_pracy
+    fk_id_lokalu
 )
 VALUES 
 -- Prezes
