@@ -11,4 +11,7 @@ VALUES
 ('umowa_zlecenie'),
 ('umowa_o_dzielo'),
 ('samozatrudnienie'),
-('kontrakt_menadzerski')
+('kontrakt_menadzerski');
+
+
+

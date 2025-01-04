@@ -1,3 +1,4 @@
+USE spa;
 CREATE TABLE [dbo].[t_pracownicy]
 (
   [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
