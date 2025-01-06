@@ -1,6 +1,6 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
 USE spa;
-INSERT INTO t_dzienne_zuzycie_wody(
+INSERT INTO t_dzienne_zuzycie_wody_lokacja (
     fk_nazwa_lokacji,
     fk_nazwa_typu_lokacji,
     wskazanie,
