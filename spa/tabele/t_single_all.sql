@@ -1,5 +1,8 @@
 CREATE DATABASE spa;
+
 USE spa;
+GO
+
 CREATE TABLE [dbo].[t_formy_zatrudnienia ]
 (
   [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -67,8 +70,8 @@ CREATE TABLE dbo.t_lokacje
   [srednia_wilgotnosc] FLOAT NOT NULL DEFAULT 0,
   [maksymalna_ilosc_osob] INT NOT NULL DEFAULT 1,
   [cena_za_godzine] MONEY NOT NULL DEFAULT 0,
-  [fk_id_typy_lokacji] INT NOT NULL FOREIGN KEY(fk_id_typy_lokacji)
-    REFERENCES t_typy_lokacji(id)
+  [fk_nazwa_typu_lokacji] VARCHAR(64) NOT NULL FOREIGN KEY(fk_nazwa_typu_lokacji)
+    REFERENCES t_typy_lokacji(nazwa)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
   [fk_nazwa_lokalu] VARCHAR(128) NOT NULL FOREIGN KEY(fk_nazwa_lokalu)
@@ -141,7 +144,11 @@ CREATE TABLE [dbo].[t_rezerwacje_lokacje]
   [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [fk_nazwa_lokacji] VARCHAR(64) FOREIGN KEY(fk_nazwa_lokacji)
     REFERENCES t_lokacje(nazwa)
-      ON DELETE CASCADE
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [fk_nazwa_typu_lokacji] VARCHAR(64) NOT NULL FOREIGN KEY(fk_nazwa_typu_lokacji)
+    REFERENCES t_typy_lokacji(nazwa)
+      ON DELETE NO ACTION
       ON UPDATE CASCADE,
   [czas] INT NOT NULL DEFAULT 0,
   [poczatek_rezerwacji] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -150,7 +157,6 @@ CREATE TABLE [dbo].[t_rezerwacje_lokacje]
   [nazwisko] VARCHAR(64) NOT NULL,
   [numer_telefonu] VARCHAR(9) NOT NULL
 )
-
 CREATE TABLE [dbo].[t_rezerwacje_zabiegi]
 (
   [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
