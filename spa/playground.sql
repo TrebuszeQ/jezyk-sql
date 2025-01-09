@@ -67,3 +67,4 @@ USE spa;
 --     AND YEAR(a.data_czas) = @Year        
 -- GROUP BY a.fk_nazwa_lokalu, a.data_czas;
 
+SELECT * FROM t_pracownicy

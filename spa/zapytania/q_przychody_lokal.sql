@@ -1,6 +1,7 @@
-DECLARE @Data DATE = '2024-09-16';
 USE spa;
 GO 
+
+DECLARE @Data DATE = '2024-09-16';
 
 -- SELECT a.fk_nazwa_lokalu AS 'nazwa_lokalu',
 --     SUM(a.wskazanie) * 6.00 AS 'koszty_wody',
@@ -15,5 +16,5 @@ GO
 --     LEFT JOIN v_wynagrodzenia_lokal d
 --         ON a.fk_nazwa_lokalu = d.nazwa
 -- WHERE MONTH(a.data_czas) = MONTH(@Data)
---     AND YEAR(a.data_czas) = YEAR(@Data)
+--     AND YEAR(a.data_czas) = YEAR(@Data)   
 -- GROUP BY a.fk_nazwa_lokalu, a.data_czas;
