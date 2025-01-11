@@ -7,18 +7,20 @@ WITH cte AS (
     SELECT a.fk_nazwa_lokacji AS 'nazwa_lokacji',
     b.fk_nazwa_lokalu AS 'nazwa_lokalu',
     CONVERT(date, a.poczatek_rezerwacji) AS 'data',
+    czas,
     (a.cena * a.czas) AS 'przychody'
     FROM t_rezerwacje_lokacje a
         LEFT JOIN t_lokacje b
             ON a.fk_nazwa_lokacji = b.nazwa
+    WHERE MONTH(a.poczatek_rezerwacji) = MONTH(@Data) 
+    AND YEAR(a.poczatek_rezerwacji) = YEAR(@Data)
 )
 
 SELECT a.nazwa_lokacji,
     a.nazwa_lokalu,
-    SUM(a.przychody) as 'przychody',
+    SUM(a.przychody) AS 'przychody',
+    SUM(a.czas) AS 'czas',
     COUNT(a.nazwa_lokacji) as 'ilosc_rezerwacji'
 FROM cte a
-WHERE MONTH(a.data) = MONTH(@Data) 
-    AND YEAR(a.data) = YEAR(@Data)
 GROUP BY a.nazwa_lokacji, a.nazwa_lokalu
 ORDER BY przychody DESC;

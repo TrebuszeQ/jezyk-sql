@@ -21,4 +21,4 @@ FROM cte a
 WHERE MONTH(a.data) = MONTH(@Data) 
     AND YEAR(a.data) = YEAR(@Data)
 GROUP BY a.typ_lokacji, a.nazwa_lokalu
-ORDER BY zarobki DESC;
+ORDER BY przychody DESC;

@@ -1,4 +1,206 @@
-USE SPA;
+CREATE DATABASE spa;
+GO
+USE spa
+
+CREATE TABLE [dbo].[t_formy_zatrudnienia ]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(64) UNIQUE NOT NULL
+);
+
+CREATE TABLE [dbo].[t_lokale]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(128) UNIQUE NOT NULL,
+  [miasto] VARCHAR(128) NOT NULL,
+  [ulica] VARCHAR(128) NOT NULL,
+  [numer_domu] VARCHAR(8) NOT NULL,
+  [kod_pocztowy] VARCHAR(5) NOT NULL
+);
+
+CREATE TABLE [dbo].[t_typy_lokacji]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(64) UNIQUE NOT NULL
+);
+
+CREATE TABLE [dbo].[t_typy_zabiegow]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(64) UNIQUE NOT NULL
+);
+
+CREATE TABLE [dbo].[t_zawody]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(64) UNIQUE NOT NULL, 
+  [opis] varchar(128)
+);
+
+CREATE TABLE [dbo].[t_zabiegi]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(64) UNIQUE NOT NULL,
+  [cena] MONEY NOT NULL DEFAULT 0,
+  [fk_id_typu] INT NOT NULL FOREIGN KEY(fk_id_typu) 
+    REFERENCES t_typy_zabiegow(id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
+CREATE TABLE dbo.t_lokacje
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [nazwa] VARCHAR(64) NOT NULL UNIQUE,
+  [opis] VARCHAR(256),
+  [srednia_temperatura] FLOAT NOT NULL DEFAULT 0,
+  [srednia_wilgotnosc] FLOAT NOT NULL DEFAULT 0,
+  [maksymalna_ilosc_osob] INT NOT NULL DEFAULT 1,
+  [cena_za_godzine] MONEY NOT NULL DEFAULT 0,
+  [fk_nazwa_typu_lokacji] VARCHAR(64) NOT NULL FOREIGN KEY(fk_nazwa_typu_lokacji)
+    REFERENCES t_typy_lokacji(nazwa)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
+  [fk_nazwa_lokalu] VARCHAR(128) NOT NULL FOREIGN KEY(fk_nazwa_lokalu)
+    REFERENCES t_lokale(nazwa)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
+CREATE TABLE [dbo].[t_dzienne_koszty_eksploatacyjne_inne]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [id_faktury] VARCHAR(32) NOT NULL UNIQUE,
+  [fk_nazwa_lokalu] VARCHAR(128) FOREIGN KEY(fk_nazwa_lokalu)
+    REFERENCES t_lokale(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [koszt] MONEY NOT NULL DEFAULT 0,
+  [data_czas] DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE [dbo].[t_dzienne_zuzycie_pradu_lokacja]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [fk_nazwa_lokacji] VARCHAR(64) FOREIGN KEY(fk_nazwa_lokacji)
+    REFERENCES t_lokacje(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [fk_nazwa_typu_lokacji] VARCHAR(64) FOREIGN KEY(fk_nazwa_typu_lokacji)
+    REFERENCES t_typy_lokacji(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  [wskazanie] FLOAT NOT NULL,
+  [data_czas] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE [dbo].[t_dzienne_zuzycie_pradu_lokal]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [fk_nazwa_lokalu] VARCHAR(128) FOREIGN KEY(fk_nazwa_lokalu)
+    REFERENCES t_lokale(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [wskazanie] FLOAT NOT NULL,
+  [data_czas] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE [dbo].[t_dzienne_zuzycie_wody_lokacja]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [fk_nazwa_lokacji] VARCHAR(64) FOREIGN KEY(fk_nazwa_lokacji)
+    REFERENCES t_lokacje(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [fk_nazwa_typu_lokacji] VARCHAR(64) FOREIGN KEY(fk_nazwa_typu_lokacji)
+    REFERENCES t_typy_lokacji(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  [wskazanie] FLOAT NOT NULL DEFAULT 0,
+  [data_czas] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE [dbo].[t_dzienne_zuzycie_wody_lokal]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [fk_nazwa_lokalu] VARCHAR(128) FOREIGN KEY(fk_nazwa_lokalu)
+    REFERENCES t_lokale(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [wskazanie] FLOAT NOT NULL,
+  [data_czas] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE [dbo].[t_pracownicy]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [imie] VARCHAR(64) NOT NULL,
+  [nazwisko] VARCHAR(128) NOT NULL,
+  [pesel] VARCHAR(11) UNIQUE NOT NULL,
+  [fk_nazwa_zawodu] VARCHAR(64) NOT NULL FOREIGN KEY(fk_nazwa_zawodu) 
+    REFERENCES t_zawody(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [wynagrodzenie_brutto] FLOAT NOT NULL DEFAULT 0.0,
+  [fk_nazwa_formy_zatrudnienia] VARCHAR(64) NOT NULL FOREIGN KEY(fk_nazwa_formy_zatrudnienia)
+    REFERENCES t_formy_zatrudnienia(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [poczatek_umowy] DATE NOT NULL,
+  [koniec_umowy] DATE,
+  [fk_id_przelozonego] INT NOT NULL FOREIGN KEY(fk_id_przelozonego)
+    REFERENCES t_pracownicy(id)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  [fk_id_lokalu] INT NOT NULL FOREIGN KEY(fk_id_lokalu)
+    REFERENCES t_lokale(id)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE
+);
+
+
+CREATE TABLE [dbo].[t_rezerwacje_lokacje]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [fk_nazwa_lokacji] VARCHAR(64) FOREIGN KEY(fk_nazwa_lokacji)
+    REFERENCES t_lokacje(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  [fk_nazwa_typu_lokacji] VARCHAR(64) NOT NULL FOREIGN KEY(fk_nazwa_typu_lokacji)
+    REFERENCES t_typy_lokacji(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  [czas] INT NOT NULL DEFAULT 0,
+  [poczatek_rezerwacji] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  [cena] MONEY NOT NULL DEFAULT 0,
+  [imie] VARCHAR(64) NOT NULL,
+  [nazwisko] VARCHAR(64) NOT NULL,
+  [numer_telefonu] VARCHAR(9) NOT NULL
+);
+
+CREATE TABLE [dbo].[t_rezerwacje_zabiegi]
+(
+  [id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [fk_nazwa_lokalu] VARCHAR(128) NOT NULL FOREIGN KEY(fk_nazwa_lokalu)
+    REFERENCES t_lokale(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [fk_nazwa_zabiegu] VARCHAR(64) FOREIGN KEY(fk_nazwa_zabiegu)
+    REFERENCES t_zabiegi(nazwa)
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE,
+  [czas] INT NOT NULL DEFAULT 0,
+  [poczatek_rezerwacji] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  [cena] MONEY NOT NULL DEFAULT 0,
+  [imie] VARCHAR(64) NOT NULL,
+  [nazwisko] VARCHAR(64) NOT NULL,
+  [numer_telefonu] VARCHAR(9) NOT NULL,
+  [fk_pesel_pracownika] VARCHAR(11) NOT NULL FOREIGN KEY(fk_pesel_pracownika)
+    REFERENCES t_pracownicy(pesel)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+
 INSERT INTO dbo.t_formy_zatrudnienia (
     nazwa
 )
@@ -10,7 +212,7 @@ VALUES
 ('umowa_zlecenie'),
 ('umowa_o_dzielo'),
 ('samozatrudnienie'),
-('kontrakt_menadzerski')
+('kontrakt_menadzerski');
 
 INSERT INTO dbo.t_lokale (
   nazwa,
@@ -23,7 +225,7 @@ VALUES
 ('Biuro', 'Gdańsk', 'ul. Krótki Targ', '27', '80450'),
 ('Złoty Kwiat', 'Kraków', 'ul. Floriańska', '15', '31019'),
 ('Relaks', 'Warszawa', 'Al. Jerozolimskie', '100', '00807'),
-('Morska Bryza', 'Gdańsk', 'ul. Długi Targ', '44', '80830')
+('Morska Bryza', 'Gdańsk', 'ul. Długi Targ', '44', '80830');
 
 INSERT INTO t_typy_lokacji (
     nazwa
@@ -36,7 +238,7 @@ VALUES
 ('sauna_podczerwona'),
 ('jacuzzi'),
 ('teznia_solankowa'),
-('kriokomora')
+('kriokomora');
 
 INSERT INTO t_typy_zabiegow (
     nazwa
@@ -45,7 +247,7 @@ VALUES
 ('masaz'),
 ('zabieg_na_twarz'),
 ('zabieg_na_dlonie'),
-('zabieg_na_stopy')
+('zabieg_na_stopy');
 
 INSERT INTO t_zawody (
     nazwa,
@@ -77,7 +279,7 @@ VALUES
 ('hydraulik', NULL),
 ('sprzataczka', NULL),
 ('ochroniarz', NULL),
-('obsluga_klienta', NULL)
+('obsluga_klienta', NULL);
 
 INSERT INTO t_zabiegi (
   nazwa,
@@ -101,7 +303,7 @@ VALUES
 ('mikrodermabrazja', 500, 2),
 ('manicure_hybrydowy', 200, 3),
 ('pedicure_hybrydowy', 200, 4),
-('fish_pedicure', 200, 4)
+('fish_pedicure', 200, 4);
 
 INSERT INTO t_dzienne_koszty_eksploatacyjne_inne (
     id_faktury,
@@ -149,7 +351,7 @@ VALUES
 ('F0037', 'Relaks', 360.00, '2024-09-18 12:15:00'),
 ('F0038', 'Morska Bryza', 520.00, '2024-09-16 22:00:00'),
 ('F0039', 'Biuro', 190.00, '2024-09-17 05:30:00'),
-('F0040', 'Złoty Kwiat', 630.00, '2024-09-18 17:00:00')
+('F0040', 'Złoty Kwiat', 630.00, '2024-09-18 17:00:00');
 
 INSERT INTO t_lokacje (
   nazwa,
@@ -195,7 +397,7 @@ VALUES
 ('teznia_solankowa_4', NULL, 36, 80, 8, 30, 'teznia_solankowa', 'Morska Bryza'),
 ('kriokomora_1', NULL, -110, 60, 8, 100, 'kriokomora', 'Złoty Kwiat'),
 ('kriokomora_2', NULL, -110, 60, 8, 100, 'kriokomora', 'Relaks'),
-('kriokomora_3', NULL, -110, 60, 8, 100, 'kriokomora', 'Morska Bryza')
+('kriokomora_3', NULL, -110, 60, 8, 100, 'kriokomora', 'Morska Bryza');
 
 INSERT INTO t_dzienne_zuzycie_pradu_lokacja (
   fk_nazwa_lokacji,
@@ -299,7 +501,7 @@ VALUES
 ('teznia_solankowa_4', 'teznia_solankowa', 12.7, '2024-09-18 23:00:00'),
 ('kriokomora_1', 'kriokomora', 31.4, '2024-09-18 23:00:00'),
 ('kriokomora_2', 'kriokomora', 29.7, '2024-09-18 23:00:00'),
-('kriokomora_3', 'kriokomora', 32.5, '2024-09-18 23:00:00')
+('kriokomora_3', 'kriokomora', 32.5, '2024-09-18 23:00:00');
 
 INSERT INTO t_dzienne_zuzycie_wody_lokacja (
     fk_nazwa_lokacji,
@@ -403,7 +605,7 @@ VALUES
 ('teznia_solankowa_4', 'teznia_solankowa', 50.1, '2024-09-18 23:00:00'),
 ('kriokomora_1', 'kriokomora', 22.3, '2024-09-18 23:00:00'),
 ('kriokomora_2', 'kriokomora', 25.1, '2024-09-18 23:00:00'),
-('kriokomora_3', 'kriokomora', 23.9, '2024-09-18 23:00:00')
+('kriokomora_3', 'kriokomora', 23.9, '2024-09-18 23:00:00');
 
 INSERT INTO t_dzienne_zuzycie_pradu_lokal (
   fk_nazwa_lokalu,
@@ -422,7 +624,7 @@ VALUES
 ('Biuro',	554.50000000000006, '2024-09-18 23:00:00.000'),
 ('Morska Bryza',	554.50000000000006, '2024-09-18 23:00:00.000'),
 ('Relaks',	667.3000000000004,	'2024-09-18 23:00:00.000'),
-('Zloty Kwiat',	782.7999999999997,	'2024-09-18 23:00:00.000')
+('Zloty Kwiat',	782.7999999999997,	'2024-09-18 23:00:00.000');
 
 INSERT INTO t_dzienne_zuzycie_wody_lokal (
   fk_nazwa_lokalu,
@@ -441,7 +643,7 @@ VALUES
 ('Biuro',	101.2, '2024-09-18 23:00:00.000'),
 ('Morska Bryza',	2838.4, '2024-09-18 23:00:00.000'),
 ('Relaks',	3939.4999999999995,	'2024-09-18 23:00:00.000'),
-('Zloty Kwiat',	4013.1,	'2024-09-18 23:00:00.000')
+('Zloty Kwiat',	4013.1,	'2024-09-18 23:00:00.000');
 
 INSERT INTO t_pracownicy (
     imie,
@@ -573,7 +775,7 @@ VALUES
 ('Andrzej', 'Mazur', '72100563918', 'obsluga_klienta', 4300.00, 'umowa_o_prace_na_czas_okreslony', '2023-08-11', '2025-02-11', 6, 3),
 ('Elżbieta', 'Wójcik', '57031729584', 'obsluga_klienta', 3900.00, 'umowa_zlecenie', '2023-06-26', '2025-06-26', 6, 3),
 ('Henryk', 'Kowalski', '74062184395', 'obsluga_klienta', 4100.00, 'umowa_zlecenie', '2023-05-17', '2025-11-17', 6, 4),
-('Kazimiera', 'Nowak', '69090357128', 'obsluga_klienta', 3800.00, 'umowa_zlecenie', '2023-11-09', '2025-11-09', 6, 4)
+('Kazimiera', 'Nowak', '69090357128', 'obsluga_klienta', 3800.00, 'umowa_zlecenie', '2023-11-09', '2025-11-09', 6, 4);
 
 INSERT INTO t_rezerwacje_lokacje (
     fk_nazwa_lokacji,
@@ -677,7 +879,7 @@ VALUES
 ('laznia_turecka_1', 'laznia_turecka', 1, '2024-09-18 09:00:00', 70.00, 'Xawery', 'Duda', '692581473'),
 ('sauna_finska_1', 'sauna_finska', 3, '2024-09-18 14:00:00', 210.00, 'Ywona', 'Kamiński', '925817364'),
 ('sauna_mokra_1', 'sauna_mokra', 2, '2024-09-18 19:30:00', 140.00, 'Zygmunt', 'Lewandowska', '158749632'),
-('sauna_parowa_1', 'sauna_parowa', 1, '2024-09-18 12:30:00', 70.00, 'Amelia', 'Zielińska', '481963257')
+('sauna_parowa_1', 'sauna_parowa', 1, '2024-09-18 12:30:00', 70.00, 'Amelia', 'Zielińska', '481963257');
 
 INSERT INTO t_rezerwacje_zabiegi (
   fk_nazwa_lokalu,
@@ -779,4 +981,4 @@ VALUES
 ('Morska Bryza', 'pedicure_hybrydowy', 1, '2024-09-18 15:30:00', 200.00, 'Izabela', 'Wróbel', '741852963', '69011942857'),
 ('Morska Bryza', 'masaz_goracymi_kamieniami', 2, '2024-09-18 08:00:00', 600.00, 'Karolina', 'Zawadzka', '852963741', '69011942857'),
 ('Morska Bryza', 'oczyszczanie_wodorowe', 2, '2024-09-18 10:30:00', 500.00, 'Julia', 'Kaczmarek', '852369741', '67091452831'),
-('Morska Bryza', 'masaz_relaksacyjny', 1, '2024-09-18 13:00:00', 500.00, 'Natalia', 'Mazur', '741852963', '65051187296')
+('Morska Bryza', 'masaz_relaksacyjny', 1, '2024-09-18 13:00:00', 500.00, 'Natalia', 'Mazur', '741852963', '65051187296');

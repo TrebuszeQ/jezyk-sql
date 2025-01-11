@@ -26,13 +26,13 @@ VALUES
 -- Dyrektor regionalny
 ('Marlena', 'Chlebek', '92011032712', 'dyrektor_regionalny', 15000.00, 'umowa_o_prace_na_czas_nieokreslony', '2022-06-07', NULL, 1, 1),
 -- Menadżer SPA
-('Ewa', 'Dąbrowska', '88042013579', 'menadzer_spa', 10000.00, 'umowa_o_prace_na_czas_okreslony', '2023-01-01', '2024-12-31', 6, 2),
+('Ewa', 'Dąbrowska', '88042013579', 'menadzer_spa', 10000.00, 'umowa_o_prace_na_czas_okreslony', '2023-01-01', '2025-12-31', 6, 2),
 ('Agata', 'Krawczyk', '77091563214', 'menadzer_spa', 9000.00, 'umowa_o_prace_na_czas_nieokreslony', '2022-04-01', NULL, 6, 3),
 ('Bożena', 'Kamińska', '66072185291', 'menadzer_spa', 9200.00, 'umowa_o_prace_na_czas_nieokreslony', '2021-06-10', NULL, 6, 4),
 -- Asystent Menadżera SPA
-('Dawid', 'Baran', '90122045781', 'asystent_menadzera_spa', 6500.00, 'umowa_o_prace_na_czas_okreslony', '2023-06-15', '2024-06-15', 7, 2),
-('Mariusz', 'Błaszczyk', '92051528111', 'asystent_menadzera_spa', 6500.00, 'umowa_o_prace_na_czas_okreslony', '2023-05-10', '2024-05-10', 8, 3),
-('Artur', 'Lewandowski', '93011874526', 'asystent_menadzera_spa', 6700.00, 'umowa_o_prace_na_czas_okreslony', '2023-09-01', '2024-09-01', 9, 4),
+('Dawid', 'Baran', '90122045781', 'asystent_menadzera_spa', 6500.00, 'umowa_o_prace_na_czas_okreslony', '2023-06-15', '2025-06-15', 7, 2),
+('Mariusz', 'Błaszczyk', '92051528111', 'asystent_menadzera_spa', 6500.00, 'umowa_o_prace_na_czas_okreslony', '2023-05-10', '2025-05-10', 8, 3),
+('Artur', 'Lewandowski', '93011874526', 'asystent_menadzera_spa', 6700.00, 'umowa_o_prace_na_czas_okreslony', '2023-09-01', '2025-09-01', 9, 4),
 -- Specjalista ds. Marketingu
 ('Monika', 'Czerwinska', '82031098523', 'specjalista_do_spraw_marketingu', 7500.00, 'umowa_o_prace_na_czas_nieokreslony', '2021-09-01', NULL, 4, 1),
 ('Tadeusz', 'Zając', '78110295317', 'specjalista_do_spraw_marketingu', 7700.00, 'umowa_o_prace_na_czas_nieokreslony', '2020-03-15', NULL, 4, 1),
@@ -82,13 +82,13 @@ VALUES
 ('Elżbieta', 'Mazurek', '65051187296', 'masazysta', 5700.00, 'umowa_zlecenie', '2022-12-19', '2023-06-19', 5, 4),
 ('Marek', 'Jankowski', '77020854139', 'masazysta', 6300.00, 'umowa_zlecenie', '2023-03-07', '2024-03-07', 5, 4),
 -- Recepcjonista
-('Magdalena', 'Kowalczyk', '91032578912', 'recepcjonista', 4500.00, 'umowa_o_prace_na_okres_probny', '2024-02-01', '2024-05-01', 6, 2),
-('Daniel', 'Wieczorek', '94092715396', 'recepcjonista', 4700.00, 'umowa_o_prace_na_okres_probny', '2024-03-01', '2024-06-01', 6, 2),
-('Roman', 'Pawlak', '70061739285', 'recepcjonista', 4800.00, 'umowa_o_prace_na_okres_probny', '2023-10-10', '2024-01-10', 6, 2),
+('Magdalena', 'Kowalczyk', '91032578912', 'recepcjonista', 4500.00, 'umowa_o_prace_na_okres_probny', '2024-02-01', '2025-05-01', 6, 2),
+('Daniel', 'Wieczorek', '94092715396', 'recepcjonista', 4700.00, 'umowa_o_prace_na_okres_probny', '2024-03-01', '2025-06-01', 6, 2),
+('Roman', 'Pawlak', '70061739285', 'recepcjonista', 4800.00, 'umowa_o_prace_na_okres_probny', '2024-10-10', '2025-01-10', 6, 2),
 ('Henryka', 'Lis', '63092158742', 'recepcjonista', 4600.00, 'umowa_o_prace_na_czas_nieokreslony', '2021-08-01', NULL, 6, 3),
-('Kazimiera', 'Górska', '59040312968', 'recepcjonista', 4900.00, 'umowa_o_prace_na_czas_okreslony', '2022-06-05', '2023-06-05', 6, 3),
+('Kazimiera', 'Górska', '59040312968', 'recepcjonista', 4900.00, 'umowa_o_prace_na_czas_okreslony', '2024-06-05', '2025-06-05', 6, 3),
 ('Tadeusz', 'Dąbrowski', '78011547896', 'recepcjonista', 4700.00, 'umowa_o_prace_na_czas_nieokreslony', '2024-02-15', NULL, 6, 3),
-('Bożena', 'Czarnecka', '66122985174', 'recepcjonista', 5000.00, 'umowa_o_prace_na_okres_probny', '2023-03-20', '2023-06-20', 6, 4),
+('Bożena', 'Czarnecka', '66122985174', 'recepcjonista', 5000.00, 'umowa_o_prace_na_okres_probny', '2024-03-20', '2025-06-20', 6, 4),
 ('Andrzej', 'Piotrowski', '72050869312', 'recepcjonista', 4500.00, 'umowa_o_prace_na_czas_nieokreslony', '2022-09-12', NULL, 6, 4),
 -- Instruktor Fitness
 ('Adam', 'Zieliński', '78120935719', 'instruktor_fitness', 7000.00, 'samozatrudnienie', '2022-11-01', NULL, 5, 2),
@@ -123,11 +123,11 @@ VALUES
 ('Stanisław', 'Górski', '76051498237', 'ochroniarz', 4600.00, 'umowa_o_prace_na_czas_nieokreslony', '2022-06-20', NULL, 6, 4),
 ('Marianna', 'Dąbrowska', '61082754193', 'ochroniarz', 4100.00, 'umowa_o_prace_na_czas_nieokreslony', '2023-09-08', NULL, 6, 4),
 -- Obsługa Klienta
-('Karolina', 'Jankowska', '93081125874', 'obsluga_klienta', 4000.00, 'umowa_o_prace_na_czas_okreslony', '2023-10-16', '2024-04-16', 6, 2),
-('Iwona', 'Kruk', '90061827541', 'obsluga_klienta', 4100.00, 'umowa_o_prace_na_czas_okreslony', '2023-11-01', '2024-11-01', 6, 2),
-('Tadeusz', 'Czarnecki', '79021185364', 'obsluga_klienta', 4200.00, 'umowa_o_prace_na_czas_okreslony', '2021-04-19', '2021-10-19', 6, 2),
-('Bożena', 'Piotrowska', '65072918472', 'obsluga_klienta', 4000.00, 'umowa_o_prace_na_czas_okreslony', '2023-01-03', '2024-01-03', 6, 3),
-('Andrzej', 'Mazur', '72100563918', 'obsluga_klienta', 4300.00, 'umowa_o_prace_na_czas_okreslony', '2022-08-11', '2023-02-11', 6, 3),
-('Elżbieta', 'Wójcik', '57031729584', 'obsluga_klienta', 3900.00, 'umowa_zlecenie', '2020-06-26', '2021-06-26', 6, 3),
-('Henryk', 'Kowalski', '74062184395', 'obsluga_klienta', 4100.00, 'umowa_zlecenie', '2023-05-17', '2023-11-17', 6, 4),
-('Kazimiera', 'Nowak', '69090357128', 'obsluga_klienta', 3800.00, 'umowa_zlecenie', '2022-11-09', '2023-11-09', 6, 4);
+('Karolina', 'Jankowska', '93081125874', 'obsluga_klienta', 4000.00, 'umowa_o_prace_na_czas_okreslony', '2023-10-16', '2025-04-16', 6, 2),
+('Iwona', 'Kruk', '90061827541', 'obsluga_klienta', 4100.00, 'umowa_o_prace_na_czas_okreslony', '2023-11-01', '2025-11-01', 6, 2),
+('Tadeusz', 'Czarnecki', '79021185364', 'obsluga_klienta', 4200.00, 'umowa_o_prace_na_czas_okreslony', '2023-04-19', '2025-10-19', 6, 2),
+('Bożena', 'Piotrowska', '65072918472', 'obsluga_klienta', 4000.00, 'umowa_o_prace_na_czas_okreslony', '2023-01-03', '2025-01-03', 6, 3),
+('Andrzej', 'Mazur', '72100563918', 'obsluga_klienta', 4300.00, 'umowa_o_prace_na_czas_okreslony', '2023-08-11', '2025-02-11', 6, 3),
+('Elżbieta', 'Wójcik', '57031729584', 'obsluga_klienta', 3900.00, 'umowa_zlecenie', '2023-06-26', '2025-06-26', 6, 3),
+('Henryk', 'Kowalski', '74062184395', 'obsluga_klienta', 4100.00, 'umowa_zlecenie', '2023-05-17', '2025-11-17', 6, 4),
+('Kazimiera', 'Nowak', '69090357128', 'obsluga_klienta', 3800.00, 'umowa_zlecenie', '2023-11-09', '2025-11-09', 6, 4);
