@@ -1,0 +1,147 @@
+table t_formy_zatrudnienia {
+  id int [PK]
+  nazwa varchar(64) [UNIQUE]
+}
+
+table t_lokale {
+  id int [PK]
+  nazwa varchar(128) [UNIQUE]
+  miasto varchar(128)
+  ulica varchar(128)
+  numer_domu varchar(8)
+  kod_pocztowy varchar(5)
+}
+
+table t_typy_lokacji {
+  id int [PK]
+  nazwa varchar(64) [UNIQUE]
+}
+
+table t_typy_zabiegow {
+  id int [PK]
+  nazwa varchar(64) [UNIQUE]
+}
+
+table t_zawody {
+  id int [PK]
+  nazwa varchar(64) [UNIQUE]
+  opis varchar(128)
+}
+
+table t_zabiegi {
+  id int [PK]
+  nazwa varchar(64) [UNIQUE]
+  cena money
+  fk_id_typu int
+}
+
+table t_lokacje {
+  id int [PK]
+  nazwa varchar(64) [UNIQUE]
+  opis varchar(256)
+  srednia_temperatura float
+  srednia_wilgotnosc float
+  maksymalna_ilosc_osob int
+  cena_za_godzine money
+  fk_nazwa_typu_lokacji varchar(64)
+  fk_nazwa_lokalu varchar(128)
+}
+
+table t_dzienne_koszty_eksploatacyjne_inne {
+  id int [PK]
+  id_faktury varchar(32) [UNIQUE]
+  fk_nazwa_lokalu varchar(128)
+  koszt money
+  data_czas datetime
+}
+
+table t_dzienne_zuzycie_pradu_lokacja {
+  id int [PK]
+  fk_nazwa_lokacji varchar(64)
+  fk_nazwa_typu_lokacji varchar(64)
+  wskazanie float
+  data_czas datetime
+}
+
+table t_dzienne_zuzycie_pradu_lokal {
+  id int [PK]
+  fk_nazwa_lokalu varchar(128)
+  wskazanie float
+  data_czas datetime
+}
+
+table t_dzienne_zuzycie_wody_lokacja {
+  id int [PK]
+  fk_nazwa_lokacji varchar(64)
+  fk_nazwa_typu_lokacji varchar(64)
+  wskazanie float
+  data_czas datetime
+}
+
+table t_dzienne_zuzycie_wody_lokal {
+  id int [PK]
+  fk_nazwa_lokalu varchar(128)
+  wskazanie float
+  data_czas datetime
+}
+
+table t_pracownicy {
+  id int [PK]
+  imie varchar(64)
+  nazwisko varchar(128)
+  pesel varchar(11) [UNIQUE]
+  fk_nazwa_zawodu int
+  wynagrodzenie_brutto float
+  fk_nazwa_formy_zatrudnienia int
+  poczatek_umowy date
+  koniec_umowy date
+  fk_id_przelozonego int
+  fk_id_lokalu int
+}
+
+table t_rezerwacje_lokacje {
+  id int [PK]
+  fk_nazwa_lokacji varchar(64)
+  fk_nazwa_typu_lokacji varchar(64)
+  czas int
+  poczatek_rezerwacji datetime
+  cena money
+  imie varchar(64)
+  nazwisko varchar(64)
+  numer_telefonu varchar(9)
+}
+
+table t_rezerwacje_zabiegi {
+  id int [PK]
+  fk_nazwa_lokalu varchar(128)
+  fk_nazwa_zabiegu varchar(64)
+  czas int
+  poczatek_rezerwacji datetime
+  cena money
+  imie varchar(64)
+  nazwisko varchar(64)
+  numer_telefonu varchar(9)
+  fk_pesel_pracownika varchar(11)
+}
+
+
+Ref: t_typy_zabiegow.id > t_zabiegi.fk_id_typu
+Ref: t_lokacje.fk_nazwa_typu_lokacji > t_typy_lokacji.nazwa
+Ref: t_lokacje.fk_nazwa_lokalu > t_lokale.nazwa
+Ref: t_dzienne_koszty_eksploatacyjne_inne.fk_nazwa_lokalu > t_lokale.nazwa
+Ref: t_dzienne_zuzycie_pradu_lokacja.fk_nazwa_lokacji > t_lokacje.nazwa
+Ref: t_dzienne_zuzycie_pradu_lokacja.fk_nazwa_typu_lokacji > t_typy_lokacji.nazwa
+Ref: t_dzienne_zuzycie_pradu_lokal.fk_nazwa_lokalu > t_lokale.nazwa
+Ref: t_dzienne_zuzycie_wody_lokacja.fk_nazwa_lokacji > t_lokacje.nazwa
+Ref: t_dzienne_zuzycie_wody_lokacja.fk_nazwa_typu_lokacji > t_typy_lokacji.nazwa
+Ref: t_dzienne_zuzycie_wody_lokal.fk_nazwa_lokalu > t_lokale.nazwa
+Ref: t_pracownicy.fk_nazwa_zawodu > t_zawody.id
+Ref: t_pracownicy.fk_nazwa_formy_zatrudnienia > t_formy_zatrudnienia.id
+Ref: t_pracownicy.fk_id_przelozonego > t_pracownicy.id 
+Ref: t_pracownicy.fk_id_lokalu > t_lokale.id
+Ref: t_rezerwacje_lokacje.fk_nazwa_lokacji > t_lokacje.nazwa
+Ref: t_rezerwacje_lokacje.fk_nazwa_typu_lokacji > t_typy_lokacji.nazwa
+Ref: t_rezerwacje_zabiegi.fk_nazwa_lokalu > t_lokale.nazwa
+Ref: t_rezerwacje_zabiegi.fk_nazwa_zabiegu > t_zabiegi.nazwa
+Ref: t_rezerwacje_zabiegi.fk_pesel_pracownika > t_pracownicy.pesel
+
