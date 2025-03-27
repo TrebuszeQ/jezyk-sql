@@ -60,11 +60,27 @@ FROM Products;
 USE northwind
 GO
 
-SELECT TOP 1 Customer
-FROM Orders (
-    SELECT COUNT(OrderID) 'UniqueOrdersCount',
+SELECT TOP 1 COUNT(OrderID) 'UniqueOrdersCount',
         CustomerID
     FROM Orders
     GROUP BY CustomerID
-    ORDER BY UniqueOrdersCount DESC
-)
+    ORDER BY UniqueOrdersCount DESC;
+
+--
+USE northwind
+GO
+
+SELECT * 
+FROM Products
+ORDER BY UnitsInStock DESC;
+
+--
+USE northwind
+GO
+
+SELECT * 
+FROM Products
+WHERE UnitPrice > (
+    SELECT AVG(UnitPrice)
+    FROM Products
+);
