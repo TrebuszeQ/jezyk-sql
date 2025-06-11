@@ -2,11 +2,11 @@
 USE northwind
 GO
 
-CREATE PROCEDURE dbo.OrdersPerYear
+CREATE PROCEDURE dbo.TopCustomers
     @Count INT
 AS
 BEGIN
-        SET NOCOUNT ON;
+    SET NOCOUNT ON;
     SELECT CustomerID, 
         suma_zamowien
     FROM (
