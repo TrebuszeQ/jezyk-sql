@@ -8,4 +8,16 @@ END;
 GO
 
 CREATE FUNCTION dbo.ClientsOrders(@CustomerId NVARCHAR(5))
-RETURNS TABLE
+RETURNS INT
+AS
+BEGIN
+    DECLARE @OrdersCount INT;
+
+    SELECT @OrdersCount = COUNT(OrderID)
+    FROM Orders
+    WHERE CustomerID = @CustomerId
+    
+    RETURN @OrdersCount;
+END;
+
+GO
