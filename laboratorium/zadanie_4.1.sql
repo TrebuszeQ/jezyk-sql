@@ -1,6 +1,12 @@
 USE northwind
 GO
 
+IF OBJECT_ID('UpdateStoreState', 'P') IS NOT NULL
+BEGIN
+    DROP PROCEDURE UpdateStoreState;
+END;
+GO
+
 CREATE PROCEDURE dbo.UpdateStoreState @OrderId INT
 AS 
 BEGIN
@@ -19,7 +25,7 @@ BEGIN
             END
 
             IF OBJECT_ID('tempdb..#MYTEMP') IS NOT NULL 
-                DROP TABLE #MYTEMP;
+            DROP TABLE #MYTEMP;
 
             SELECT OrderID, ProductID, Quantity
             INTO #MYTEMP
@@ -27,13 +33,13 @@ BEGIN
             WHERE OrderID = @OrderId;
             
             UPDATE a
-            SET 
-                a.UnitsInStock = a.UnitsInStock - b.Quantity,
+            SET a.UnitsInStock = a.UnitsInStock - b.Quantity,
                 a.UnitsInOrder = COALESCE(a.UnitsInOrder, 0) + b.Quantity
             FROM Products a
             INNER JOIN #MYTEMP b 
                 ON a.ProductID = b.ProductID;
             
+            COMMIT TRANSACTION;
             END TRY
             BEGIN CATCH
                 IF @@TRANCOUNT > 0

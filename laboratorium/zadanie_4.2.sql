@@ -1,6 +1,12 @@
 USE northwind
 GO
 
+IF OBJECT_ID('DeleteOrderDetails', 'TR') IS NOT NULL
+BEGIN
+    DROP TRIGGER DeleteOrderDetails;
+END;
+GO
+
 CREATE TRIGGER DeleteOrderDetails
 ON dbo.Orders
 INSTEAD OF DELETE
