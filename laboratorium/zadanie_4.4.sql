@@ -8,7 +8,8 @@ END;
 GO
 
 GO
-CREATE PROCEDURE dbo.UpdateClientsData @CustomerId NCHAR(5), 
+CREATE PROCEDURE dbo.UpdateClientsData 
+    @CustomerId NCHAR(5), 
     @NewAddress NVARCHAR(60), 
     @NewPhone nvarchar(24)
 AS
@@ -26,14 +27,14 @@ BEGIN
                 RAISERROR('Customer doesnt exists', 16, 1);
                 ROLLBACK TRANSACTION;
                 RETURN;
-        END
+            END;
 
-        IF LEN(@NewPhone) <> 24
-        BEGIN
-            RAISERROR('Phone number must be exactly 24 characters', 16, 1);
-            ROLLBACK TRANSACTION;
-            RETURN;
-        END;
+            IF LEN(@NewPhone) <> 24
+            BEGIN
+                RAISERROR('Phone number must be exactly 24 characters', 16, 1);
+                ROLLBACK TRANSACTION;
+                RETURN;
+            END;
 
         UPDATE a
         SET a.Address = @NewAddress,
@@ -41,13 +42,13 @@ BEGIN
         FROM dbo.Customers a
         WHERE a.CustomerID = @CustomerId;
         COMMIT TRANSACTION;
-        END TRY
-        BEGIN CATCH
-            IF @@TRANSCOUNT > 0
-                ROLLBACK TRANSACTION;
-            
-            DECLARE @ErrorMsg NVARCHAR(4000) = ERROR_MESSAGE();
-            RAISERROR(@ErrorMsg, 16, 1);
-        END CATCH
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+        
+        DECLARE @ErrorMsg NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR(@ErrorMsg, 16, 1);
+    END CATCH
     END;
 GO

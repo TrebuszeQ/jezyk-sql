@@ -9,20 +9,17 @@ GO
 
 CREATE TRIGGER DeleteOrderDetails
 ON dbo.Orders
-INSTEAD OF DELETE
+AFTER UPDATE
 AS 
 BEGIN
     SET NOCOUNT ON;
-        DELETE FROM dbo.[Order Details]
-        WHERE OrderID IN (
-            SELECT OrderID
-            FROM deleted
-        );
-
-        DELETE FROM dbo.Orders
-        WHERE OrderID IN (
-            SELECT OrderID
-            FROM deleted
-        );
+        IF UPDATE(Status)
+        BEGIN
+            DELETE a
+            FROM dbo.[Order Details] a
+            INNER JOIN INSERTED b
+                ON a.OrderID = b.OrderID
+            WHERE b.Status = 'Canceled'
+        END;
     END;
 GO

@@ -1,45 +1,32 @@
 USE northwind
 GO
 
-IF OBJECT_ID('UpdateStoreState', 'P') IS NOT NULL
+IF OBJECT_ID('UpdateStoreStateOnInsert', 'TR') IS NOT NULL
 BEGIN
-    DROP PROCEDURE UpdateStoreState;
+    DROP PROCEDURE UpdateStoreStateOnInsert;
 END;
 GO
 
-CREATE PROCEDURE dbo.UpdateStoreState @OrderId INT
+CREATE TRIGGER dbo.UpdateStoreStateOnInsert
+ON dbo.[Order Details]
+AFTER INSERT
 AS 
 BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
         BEGIN TRANSACTION;    
-            IF NOT EXISTS (
-                SELECT 1 FROM Orders
-                WHERE OrderID = @OrderId
-            )
-            BEGIN
-                RAISERROR('OrderId not found', 16, 1);
-                ROLLBACK TRANSACTION;
-                RETURN;
-            END
+            SET NOCOUNT ON;
 
-            IF OBJECT_ID('tempdb..#MYTEMP') IS NOT NULL 
-            DROP TABLE #MYTEMP;
-
-            SELECT OrderID, ProductID, Quantity
-            INTO #MYTEMP
-            FROM dbo.[Order Details]
-            WHERE OrderID = @OrderId;
-            
             UPDATE a
             SET a.UnitsInStock = a.UnitsInStock - b.Quantity,
-                a.UnitsInOrder = COALESCE(a.UnitsInOrder, 0) + b.Quantity
+                a.UnitsOnOrder = COALESCE(b.UnitsOnOrder, 0) + b.Quantity
             FROM Products a
-            INNER JOIN #MYTEMP b 
-                ON a.ProductID = b.ProductID;
+            INNER JOIN INSERTED b
+            ON a.ProductID = b.ProductID
             
             COMMIT TRANSACTION;
+
             END TRY
             BEGIN CATCH
                 IF @@TRANCOUNT > 0
